@@ -1,0 +1,6 @@
+[submodule "phi-mamba"]
+	path = phi-mamba
+	url = https://github.com/goombalab/phi-mamba
+[submodule "hydra"]
+	path = hydra
+	url = https://github.com/goombalab/hydra
