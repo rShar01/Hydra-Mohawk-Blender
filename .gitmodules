@@ -4,3 +4,6 @@
 [submodule "hydra"]
 	path = hydra
 	url = https://github.com/goombalab/hydra
+[submodule "deit"]
+	path = deit
+	url = https://github.com/facebookresearch/deit
