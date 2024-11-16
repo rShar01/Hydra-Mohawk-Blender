@@ -53,7 +53,9 @@ if __name__ == "__main__":
     train_dataset = ImageNetDataset(imagenet_train, transform=transform)
     train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
-    sample_data = next(iter(train_dataloader))
-    print(sample_data)
-    print(sample_data.size())
-    model(sample_data)
+    sample_X, sample_y = next(iter(train_dataloader))
+    print(sample_X)
+    print(sample_X.size())
+    pred = model(sample_X)
+    print(pred)
+    print(pred.size())
