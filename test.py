@@ -56,6 +56,9 @@ if __name__ == "__main__":
     sample_X, sample_y = next(iter(train_dataloader))
     print(sample_X)
     print(sample_X.size())
-    pred = model(sample_X)
-    print(pred)
-    print(pred.size())
+    x, x_dist = model(sample_X)
+    print(x)
+    print(x_dist)
+
+    print(x.size())
+    print(x_dist.size())
