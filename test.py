@@ -31,6 +31,7 @@ class ImageNetDataset(Dataset):
 
         return image, label
 
+
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     model = deit_tiny_distilled_patch16_224(pretrained=True)
@@ -39,9 +40,12 @@ if __name__ == "__main__":
     imagenet_train = load_dataset('Maysee/tiny-imagenet', split='train')
     imagenet_val_combined = load_dataset('Maysee/tiny-imagenet', split='valid')
 
-    imagenet_val_test = imagenet_val_combined.train_test_split(test_size=0.5, stratify_by_column='label')
-    imagenet_val = imagenet_val_test['train']
-    imagenet_test = imagenet_val_test['test']
+    # imagenet_val_test = imagenet_val_combined.train_test_split(test_size=0.5, stratify_by_column='label')
+    # imagenet_val = imagenet_val_test['train']
+    # imagenet_test = imagenet_val_test['test']
+    imagenet_train = load_dataset('ILSVRC/imagenet-1k', split='train', streaming=True, trust_remote_code=True)
+    imagenet_train = imagenet_train.shuffle(seed=42, buffer_size=1000)
+
 
     transform = T.Compose([
         T.Resize(256, interpolation=3),
@@ -50,10 +54,11 @@ if __name__ == "__main__":
         T.Normalize(IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD),
     ])
 
-    train_dataset = ImageNetDataset(imagenet_train, transform=transform)
-    train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    # train_dataset = ImageNetDataset(imagenet_train, transform=transform)
+    # train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
-    sample_X, sample_y = next(iter(train_dataloader))
+    sample_X, sample_y = next(iter(imagenet_train))
+    sample_X = transform(sample_X)
     print(sample_X)
     print(sample_X.size())
     x, x_dist = model(sample_X)
