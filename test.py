@@ -3,10 +3,15 @@ import torch
 import torchvision.transforms as T
 import timm
 
+from tqdm import tqdm
 from deit.models import deit_tiny_distilled_patch16_224
 from datasets import load_dataset
 from torch.utils.data import Dataset, DataLoader
 from timm.data.constants import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+from hydra.hydra.modules.hydra import Hydra 
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f"Using {device}")
 
 class ImageNetDataset(Dataset):
     def __init__(self, huggingface_dataset, transform=None):
@@ -76,5 +81,18 @@ if __name__ == "__main__":
 
     inter = model.blocks[0](x_emb)
     print(inter.size())
+
+    
+    hydra_block = Hydra(192)
+    # for X, y in tqdm(train_dataloader, leave=False):
+        # X.to(device)
+        # y.to(device)
+
+    embeded = model.norm_pre(model.patch_drop(model.pos_drop(model.patch_embed(sample_X))))
+    hydra_outs = hydra_block(embeded)
+    print(hydra_outs.size())
+
+
+        
 
 
