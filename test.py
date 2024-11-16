@@ -67,15 +67,14 @@ if __name__ == "__main__":
     train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
     sample_X, sample_y = next(iter(train_dataloader))
-    print(sample_X)
     print(sample_X.size())
     # x, x_dist = model(sample_X)
-    x_emb = model.patch_embed(sample_X)
-    print(x_emb)
+    x_patched = model.patch_embed(sample_X)
+    print(x_patched.size())
+    x_emb = model.norm_pre(model.patch_drop(model.pos_drop(x_patched)))
     print(x_emb.size())
 
     inter = model.forward_intermediates(x_emb)
-    print(inter)
     print(inter.size())
 
 
