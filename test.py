@@ -74,7 +74,7 @@ if __name__ == "__main__":
     x_emb = model.norm_pre(model.patch_drop(model.pos_drop(x_patched)))
     print(x_emb.size())
 
-    inter = model.forward_intermediates(x_emb)
+    inter = model.blocks[0](x_emb)
     print(inter.size())
 
 
