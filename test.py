@@ -41,7 +41,7 @@ class ImageNetDataset(Dataset):
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     # model = deit_tiny_distilled_patch16_224(pretrained=True)
-    model = timm.create_model('vit_tiny_patch16_224', pretrained=True)
+    model = timm.create_model('vit_tiny_patch16_224', pretrained=True).to(device)
     print("ok")
     
     imagenet_train = load_dataset('Maysee/tiny-imagenet', split='train')
@@ -73,6 +73,8 @@ if __name__ == "__main__":
     train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
     sample_X, sample_y = next(iter(train_dataloader))
+    sample_X.to(device)
+    sample_y.to(device)
     print(sample_X.size())
     # x, x_dist = model(sample_X)
     x_patched = model.patch_embed(sample_X)
@@ -84,7 +86,7 @@ if __name__ == "__main__":
     print(inter.size())
 
     
-    hydra_block = Hydra(192)
+    hydra_block = Hydra(192).to(device)
     # for X, y in tqdm(train_dataloader, leave=False):
         # X.to(device)
         # y.to(device)
