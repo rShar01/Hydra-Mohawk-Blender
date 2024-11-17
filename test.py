@@ -91,7 +91,7 @@ if __name__ == "__main__":
         # X.to(device)
         # y.to(device)
 
-    embeded = model.norm_pre(model.patch_drop(model.pos_drop(model.patch_embed(sample_X))))
+    embeded = model.norm_pre(model.patch_drop(model.pos_drop(model.patch_embed(sample_X)))).to(device)
     hydra_outs = hydra_block(embeded)
     print(hydra_outs.size())
 
