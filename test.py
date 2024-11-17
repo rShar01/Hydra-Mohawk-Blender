@@ -8,7 +8,8 @@ from deit.models import deit_tiny_distilled_patch16_224
 from datasets import load_dataset
 from torch.utils.data import Dataset, DataLoader
 from timm.data.constants import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
-from hydra.hydra.modules.hydra import Hydra 
+
+from hydra_main.hydra.modules.hydra import Hydra 
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Using {device}")
