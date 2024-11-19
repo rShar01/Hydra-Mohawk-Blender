@@ -1,11 +1,11 @@
 import torch
 import torch.nn.functional as F
 from einops import einsum, rearrange, repeat
-from mamba_ssm.ops.triton.layernorm_gated import (
+from .mamba_main.mamba_ssm.ops.triton.layernorm_gated import (
     _layer_norm_fwd,
     _layer_norm_bwd,
 )
-from mamba_ssm.ops.triton.ssd_combined import (
+from .mamba_main.mamba_ssm.ops.triton.ssd_combined import (
     _mamba_chunk_scan_combined_bwd,
     _mamba_chunk_scan_combined_fwd,
 )
