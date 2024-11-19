@@ -13,6 +13,7 @@ import torch.nn.functional as F
 from torch import Tensor
 
 # from mamba_ssm.utils.torch import custom_bwd, custom_fwd
+from typing import Callable
 def custom_amp_decorator(dec: Callable, cuda_amp_deprecated: bool):
     def decorator(*args, **kwargs):
         if cuda_amp_deprecated:
