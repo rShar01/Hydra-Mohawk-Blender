@@ -9,11 +9,11 @@ import torch.nn.functional as F
 from einops import rearrange, repeat
 
 try:
-    from layernorm_gated import RMSNorm as RMSNormGated
+    from mamba_main.mamba_ssm.ops.triton.layernorm_gated import RMSNorm as RMSNormGated
 except ImportError:
     RMSNormGated = None
 
-from ssd_combined import mamba_chunk_scan_combined
+from mamba_main.mamba_ssm.ops.triton.ssd_combined import mamba_chunk_scan_combined
 
 from .ops import hydra_split_conv1d_scan_combined
 
